@@ -9,12 +9,22 @@ export enum EventType {
   CUSTOM_EVENT = 'CUSTOM_EVENT'
 }
 
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  password?: string;
+}
+
 export interface CalendarEvent {
   id: string;
   name: string;
   description: string;
   date: Date;
   type: EventType;
+  clientName?: string;
+  creatorName?: string;
+  creatorId?: string;
 }
 
 export interface HolidayDefinition {
@@ -31,4 +41,7 @@ export interface CustomEvent {
   month: number;
   day: number;
   description: string;
+  clientName: string;
+  creatorName: string;
+  creatorId: string;
 }

@@ -2,9 +2,6 @@
 import { FIXED_HOLIDAYS } from '../constants';
 import { CalendarEvent, EventType, CustomEvent } from '../types';
 
-/**
- * Calculates Easter date
- */
 export const getEaster = (year: number): Date => {
   const a = year % 19;
   const b = Math.floor(year / 100);
@@ -23,9 +20,6 @@ export const getEaster = (year: number): Date => {
   return new Date(year, month - 1, day);
 };
 
-/**
- * Gets the N-th Sunday of a specific month
- */
 const getNthSunday = (year: number, month: number, n: number): Date => {
   const firstDayOfMonth = new Date(year, month, 1);
   const firstSunday = new Date(year, month, 1 + (7 - firstDayOfMonth.getDay()) % 7);
@@ -71,9 +65,11 @@ export const getAllEventsForYear = (year: number, customEvents: CustomEvent[] = 
   const userDefined = customEvents.map(ce => ({
     id: ce.id,
     name: ce.name,
-    description: ce.description || 'Evento personalizado.',
+    description: ce.description,
     date: new Date(year, ce.month, ce.day),
-    type: EventType.CUSTOM_EVENT
+    type: EventType.CUSTOM_EVENT,
+    clientName: ce.clientName,
+    creatorName: ce.creatorName
   }));
 
   const movable = getMovableHolidays(year);
