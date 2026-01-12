@@ -3,7 +3,6 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { 
   Calendar as CalendarIcon, 
   Sparkles,
-  MapPin,
   X,
   Plus,
   ChevronLeft,
@@ -80,7 +79,7 @@ const App: React.FC = () => {
       name: (formData.get('name') as string).toUpperCase(),
       month: parseInt(formData.get('month') as string),
       day: parseInt(formData.get('day') as string),
-      description: 'Evento personalizado.'
+      description: 'Evento personalizado adicionado.'
     };
     setCustomEvents([...customEvents, newEvent]);
     setShowAddForm(false);
@@ -94,15 +93,15 @@ const App: React.FC = () => {
   const getCardStyle = (type: EventType) => {
     switch (type) {
       case EventType.NATIONAL_HOLIDAY: 
-        return 'bg-rose-950/60 border-rose-500/50 text-rose-50 shadow-[0_0_25px_rgba(244,63,94,0.1)]';
+        return 'bg-rose-950/60 border-rose-500/50 text-rose-50';
       case EventType.STATE_HOLIDAY: 
-        return 'bg-sky-950/60 border-sky-500/50 text-sky-50 shadow-[0_0_25px_rgba(14,165,233,0.1)]';
+        return 'bg-sky-950/60 border-sky-500/50 text-sky-50';
       case EventType.MUNICIPAL_HOLIDAY: 
-        return 'bg-emerald-950/60 border-emerald-500/50 text-emerald-50 shadow-[0_0_25px_rgba(16,185,129,0.1)]';
+        return 'bg-emerald-950/60 border-emerald-500/50 text-emerald-50';
       case EventType.CULTURAL_DATE: 
-        return 'bg-purple-950/60 border-purple-500/50 text-purple-50 shadow-[0_0_25px_rgba(168,85,247,0.1)]';
+        return 'bg-purple-950/60 border-purple-500/50 text-purple-50';
       case EventType.CUSTOM_EVENT: 
-        return 'bg-amber-950/60 border-amber-500/50 text-amber-50 shadow-[0_0_25px_rgba(245,158,11,0.1)]';
+        return 'bg-amber-950/60 border-amber-500/50 text-amber-50';
       default: 
         return 'bg-slate-800 border-slate-700 text-slate-50';
     }
@@ -120,77 +119,74 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="h-screen w-full bg-[#020617] text-slate-200 overflow-hidden flex flex-col font-sans selection:bg-blue-500/30">
-      <header className="flex-none bg-slate-900/80 border-b border-slate-800/50 p-6 md:px-12 flex items-center justify-between backdrop-blur-2xl">
+    <div className="h-screen w-full bg-[#020617] text-slate-200 overflow-hidden flex flex-col font-sans">
+      <header className="flex-none bg-slate-900/90 border-b border-slate-800 p-6 md:px-12 flex items-center justify-between backdrop-blur-md z-10">
         <div className="flex items-center gap-6">
-          <div className="p-3 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl shadow-2xl ring-1 ring-white/10">
+          <div className="p-3 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl shadow-xl">
             <CalendarIcon className="text-white" size={32} />
           </div>
           <div>
-            <h1 className="text-3xl font-black text-white leading-none tracking-tight">Agenda Regional</h1>
-            <p className="text-[10px] text-blue-500 uppercase tracking-[0.4em] mt-2 font-black">Campinas • RMC • Brasil</p>
+            <h1 className="text-2xl md:text-3xl font-black text-white leading-none">Agenda Campinas & RMC</h1>
+            <p className="text-[10px] text-blue-400 uppercase tracking-[0.3em] mt-2 font-bold">Brasil • São Paulo • Região Metropolitana</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-8">
-          <div className="flex items-center bg-slate-800/50 rounded-2xl p-1 border border-slate-700 shadow-inner">
-            <button onClick={() => shiftMonths(-1)} className="p-2.5 hover:text-white transition-all"><ChevronLeft size={28} /></button>
-            <div className="px-8 flex flex-col items-center min-w-[150px]">
-              <span className="font-black text-xl text-white leading-none uppercase tracking-tight">{MONTHS[startMonth]}</span>
-              <span className="text-[11px] text-slate-500 font-bold mt-1 tracking-widest">{currentYear}</span>
+        <div className="flex items-center gap-4 md:gap-8">
+          <div className="flex items-center bg-slate-800/80 rounded-2xl p-1 border border-slate-700">
+            <button onClick={() => shiftMonths(-1)} className="p-2 hover:bg-slate-700 rounded-xl transition-colors"><ChevronLeft size={24} /></button>
+            <div className="px-4 md:px-8 flex flex-col items-center min-w-[120px]">
+              <span className="font-black text-lg text-white uppercase">{MONTHS[startMonth]}</span>
+              <span className="text-[10px] text-slate-500 font-bold">{currentYear}</span>
             </div>
-            <button onClick={() => shiftMonths(1)} className="p-2.5 hover:text-white transition-all"><ChevronRight size={28} /></button>
+            <button onClick={() => shiftMonths(1)} className="p-2 hover:bg-slate-700 rounded-xl transition-colors"><ChevronRight size={24} /></button>
           </div>
           <button 
             onClick={() => setShowAddForm(true)}
-            className="flex items-center gap-3 px-8 py-4 bg-white text-slate-900 hover:bg-blue-50 rounded-2xl font-black transition-all shadow-xl"
+            className="flex items-center gap-2 px-6 py-3 bg-white text-slate-900 hover:bg-blue-50 rounded-xl font-black transition-colors shadow-lg text-sm"
           >
-            <Plus size={22} strokeWidth={3} /> NOVO
+            <Plus size={18} strokeWidth={3} /> NOVO
           </button>
         </div>
       </header>
 
-      <main className="flex-1 p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 overflow-hidden bg-[#020617]">
-        {visibleMonths.map((month, idx) => (
+      <main className="flex-1 p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 overflow-hidden">
+        {visibleMonths.map((month) => (
           <section 
             key={`${month.name}-${month.year}`} 
-            className="bg-slate-900/40 border-2 border-slate-800 rounded-[3rem] p-10 flex flex-col min-h-0 relative animate-in fade-in duration-700"
+            className="bg-slate-900/50 border-2 border-slate-800/80 rounded-[2.5rem] p-8 flex flex-col min-h-0 relative shadow-inner"
           >
-            <header className="flex justify-between items-center mb-10 pb-6 border-b border-slate-800">
-              <h2 className="text-4xl font-black text-white tracking-tighter uppercase italic">{month.name}</h2>
-              <div className="flex flex-col items-end">
-                <span className="text-xs font-black text-blue-500 tracking-widest">{month.year}</span>
-                <span className="text-[10px] text-slate-600 font-bold">{month.events.length} DATAS</span>
-              </div>
+            <header className="flex justify-between items-center mb-8 pb-4 border-b border-slate-800">
+              <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic">{month.name}</h2>
+              <span className="text-[10px] text-slate-500 font-bold">{month.events.length} DATAS</span>
             </header>
             
-            <div className="flex-1 overflow-y-auto space-y-6 pr-4 scrollbar-custom">
+            <div className="flex-1 overflow-y-auto space-y-4 pr-2 scrollbar-custom">
               {month.events.length > 0 ? (
                 month.events.map(event => (
                   <button
                     key={event.id}
                     onClick={() => handleFetchAiDetails(event)}
-                    className={`w-full text-left p-6 border-2 rounded-[2.5rem] flex items-center gap-6 relative group transition-all ${getCardStyle(event.type)}`}
+                    className={`w-full text-left p-5 border-2 rounded-[2rem] flex items-center gap-4 relative group transition-colors ${getCardStyle(event.type)}`}
                   >
-                    <div className={`text-3xl font-black min-w-[3.5rem] h-[3.5rem] flex items-center justify-center rounded-2xl border-2 ${getBadgeStyle(event.type)}`}>
+                    <div className={`text-2xl font-black min-w-[3rem] h-[3rem] flex items-center justify-center rounded-xl border-2 ${getBadgeStyle(event.type)}`}>
                       {event.date.getDate().toString().padStart(2, '0')}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex justify-between items-center gap-2 mb-1.5">
-                        <h3 className="text-lg font-black leading-tight tracking-tight truncate">{event.name}</h3>
+                      <div className="flex justify-between items-center gap-2 mb-1">
+                        <h3 className="text-base font-black leading-tight truncate">{event.name}</h3>
                         {event.type === EventType.CUSTOM_EVENT && (
-                          <button onClick={(e) => handleDeleteEvent(event.id, e)} className="p-2 text-white/50 hover:text-white transition-all"><Trash2 size={18} /></button>
+                          <button onClick={(e) => handleDeleteEvent(event.id, e)} className="p-1.5 text-white/40 hover:text-white transition-colors"><Trash2 size={16} /></button>
                         )}
                       </div>
-                      <p className="text-sm font-medium opacity-70 leading-snug">{event.description}</p>
+                      <p className="text-xs font-medium opacity-60 line-clamp-2 leading-relaxed">{event.description}</p>
                     </div>
-                    <Sparkles size={18} className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-white" />
+                    <Sparkles size={14} className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 text-white/50" />
                   </button>
                 ))
               ) : (
-                <div className="h-full flex flex-col items-center justify-center opacity-20 space-y-4">
-                  <CalendarDays size={80} strokeWidth={1} />
-                  <span className="text-sm font-black uppercase tracking-widest">Vazio</span>
+                <div className="h-full flex flex-col items-center justify-center opacity-10 space-y-4">
+                  <CalendarDays size={64} />
+                  <span className="text-xs font-black uppercase tracking-widest">Sem eventos</span>
                 </div>
               )}
             </div>
@@ -198,46 +194,48 @@ const App: React.FC = () => {
         ))}
       </main>
 
-      <footer className="flex-none p-8 border-t border-slate-800/80 bg-slate-950 flex flex-wrap justify-center gap-x-12 gap-y-6">
+      <footer className="flex-none p-6 border-t border-slate-800 bg-slate-950 flex flex-wrap justify-center gap-x-10 gap-y-4">
         {[
           { color: 'bg-rose-500', label: 'Nacional' },
           { color: 'bg-sky-500', label: 'Estadual (SP)' },
-          { color: 'bg-emerald-500', label: 'RMC / Campinas' },
-          { color: 'bg-purple-500', label: 'Especial' },
-          { color: 'bg-amber-500', label: 'Customizado' },
+          { color: 'bg-emerald-500', label: 'Campinas / RMC' },
+          { color: 'bg-purple-500', label: 'Cultural' },
+          { color: 'bg-amber-500', label: 'Custom' },
         ].map(item => (
-          <div key={item.label} className="flex items-center gap-4">
-            <div className={`w-4 h-4 rounded-full ${item.color} ring-2 ring-white/10`} />
-            <span className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">{item.label}</span>
+          <div key={item.label} className="flex items-center gap-3">
+            <div className={`w-3 h-3 rounded-full ${item.color} ring-2 ring-white/5`} />
+            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{item.label}</span>
           </div>
         ))}
       </footer>
 
       {selectedEvent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-black/80 backdrop-blur-2xl animate-in fade-in duration-200">
-          <div className="bg-slate-900 border-2 border-slate-700 w-full max-w-2xl rounded-[4rem] shadow-2xl overflow-hidden animate-in zoom-in-95">
-            <div className="p-12 border-b border-white/5 flex justify-between items-start">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/90 backdrop-blur-xl transition-opacity">
+          <div className="bg-slate-900 border-2 border-slate-700 w-full max-w-2xl rounded-[3rem] shadow-2xl overflow-hidden">
+            <div className="p-10 border-b border-white/5 flex justify-between items-start">
               <div>
-                <span className="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-white/10 text-white ring-1 ring-white/20 mb-4 inline-block">
+                <span className="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest bg-white/10 text-white mb-4 inline-block">
                   {selectedEvent.type.replace('_', ' ')}
                 </span>
-                <h3 className="text-5xl font-black text-white tracking-tighter leading-none mb-2">{selectedEvent.name}</h3>
-                <p className="text-xl text-white/60 font-black uppercase tracking-[0.15em]">
-                  {selectedEvent.date.getDate()} DE {MONTHS[selectedEvent.date.getMonth()]} • {selectedEvent.date.getFullYear()}
+                <h3 className="text-4xl font-black text-white tracking-tighter leading-none mb-2">{selectedEvent.name}</h3>
+                <p className="text-lg text-white/40 font-bold uppercase tracking-widest">
+                  {selectedEvent.date.getDate()} DE {MONTHS[selectedEvent.date.getMonth()]}
                 </p>
               </div>
-              <button onClick={() => setSelectedEvent(null)} className="p-4 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all"><X size={32} /></button>
+              <button onClick={() => setSelectedEvent(null)} className="p-3 bg-white/5 hover:bg-white/10 rounded-full text-white transition-colors"><X size={28} /></button>
             </div>
-            <div className="p-12">
-              <div className="bg-black/40 p-10 rounded-[3rem] border border-white/10">
-                <div className="flex items-center gap-4 mb-8 text-white">
-                  <Sparkles size={32} className="animate-pulse" /> 
-                  <span className="text-sm font-black uppercase tracking-[0.4em]">Insights da IA</span>
+            <div className="p-10">
+              <div className="bg-black/30 p-8 rounded-[2rem] border border-white/5">
+                <div className="flex items-center gap-3 mb-6 text-blue-400">
+                  <Sparkles size={24} /> 
+                  <span className="text-xs font-black uppercase tracking-widest">Insights da IA</span>
                 </div>
                 {loadingAi ? (
-                  <div className="flex flex-col items-center py-20 gap-8"><div className="w-16 h-16 border-4 border-white/10 border-t-white rounded-full animate-spin" /></div>
+                  <div className="flex flex-col items-center py-12">
+                    <div className="w-12 h-12 border-3 border-white/10 border-t-blue-500 rounded-full animate-spin" />
+                  </div>
                 ) : (
-                  <p className="text-2xl text-white leading-relaxed font-medium tracking-tight">{aiDetails}</p>
+                  <p className="text-xl text-slate-200 leading-relaxed font-medium">{aiDetails}</p>
                 )}
               </div>
             </div>
@@ -246,40 +244,40 @@ const App: React.FC = () => {
       )}
 
       {showAddForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-black/95 backdrop-blur-3xl">
-          <div className="bg-slate-900 border-2 border-slate-700 w-full max-w-xl rounded-[4rem] shadow-2xl overflow-hidden animate-in slide-in-from-bottom-10">
-            <div className="p-12 border-b border-slate-800 flex justify-between items-center bg-slate-800/20">
-              <h3 className="text-4xl font-black text-white tracking-tighter italic">NOVA DATA</h3>
-              <button onClick={() => setShowAddForm(false)} className="p-3 text-slate-500 hover:text-white transition-all"><X size={36} /></button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/95 backdrop-blur-2xl">
+          <div className="bg-slate-900 border-2 border-slate-700 w-full max-w-lg rounded-[3rem] shadow-2xl">
+            <div className="p-10 border-b border-slate-800 flex justify-between items-center">
+              <h3 className="text-3xl font-black text-white italic">NOVO EVENTO</h3>
+              <button onClick={() => setShowAddForm(false)} className="text-slate-500 hover:text-white"><X size={32} /></button>
             </div>
-            <form onSubmit={handleAddCustomEvent} className="p-12 space-y-10">
-              <div className="space-y-4">
-                <label className="block text-xs font-black text-slate-500 uppercase tracking-[0.3em]">Título do Evento</label>
-                <input required name="name" type="text" autoFocus className="w-full bg-slate-800 border-2 border-slate-700 rounded-3xl px-8 py-6 text-2xl font-bold focus:outline-none focus:border-white text-white shadow-inner" />
+            <form onSubmit={handleAddCustomEvent} className="p-10 space-y-8">
+              <div className="space-y-3">
+                <label className="block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Título</label>
+                <input required name="name" type="text" autoFocus className="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-6 py-4 text-xl font-bold focus:outline-none focus:border-blue-500 text-white" />
               </div>
-              <div className="grid grid-cols-2 gap-10">
-                <div className="space-y-4">
-                  <label className="block text-xs font-black text-slate-500 uppercase tracking-[0.3em]">Mês</label>
-                  <select name="month" className="w-full bg-slate-800 border-2 border-slate-700 rounded-3xl px-6 py-6 text-xl font-bold text-white focus:outline-none appearance-none cursor-pointer">
+              <div className="grid grid-cols-2 gap-6">
+                <div className="space-y-3">
+                  <label className="block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Mês</label>
+                  <select name="month" className="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-5 py-4 text-lg font-bold text-white focus:outline-none cursor-pointer">
                     {MONTHS.map((m, i) => <option key={m} value={i}>{m.toUpperCase()}</option>)}
                   </select>
                 </div>
-                <div className="space-y-4">
-                  <label className="block text-xs font-black text-slate-500 uppercase tracking-[0.3em]">Dia</label>
-                  <input required name="day" type="number" min="1" max="31" defaultValue="1" className="w-full bg-slate-800 border-2 border-slate-700 rounded-3xl px-8 py-6 text-xl font-bold text-white focus:outline-none" />
+                <div className="space-y-3">
+                  <label className="block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Dia</label>
+                  <input required name="day" type="number" min="1" max="31" defaultValue="1" className="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-6 py-4 text-lg font-bold text-white focus:outline-none" />
                 </div>
               </div>
-              <button type="submit" className="w-full py-8 bg-white text-slate-900 font-black rounded-[2.5rem] mt-8 text-2xl shadow-2xl uppercase">SALVAR</button>
+              <button type="submit" className="w-full py-6 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-2xl text-xl shadow-lg uppercase transition-colors">ADICIONAR</button>
             </form>
           </div>
         </div>
       )}
 
       <style>{`
-        .scrollbar-custom::-webkit-scrollbar { width: 8px; }
-        .scrollbar-custom::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); border-radius: 20px; }
-        .scrollbar-custom::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 20px; }
-        body { background-color: #020617; }
+        .scrollbar-custom::-webkit-scrollbar { width: 5px; }
+        .scrollbar-custom::-webkit-scrollbar-track { background: transparent; }
+        .scrollbar-custom::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        .scrollbar-custom::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
       `}</style>
     </div>
   );
