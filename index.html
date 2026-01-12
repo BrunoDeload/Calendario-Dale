@@ -7,10 +7,6 @@
     <title>Agenda Campinas & Brasil | Premium</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-      // Shim de segurança para evitar quebra do app se process.env não existir
-      window.process = window.process || { env: { API_KEY: "" } };
-    </script>
     <script type="importmap">
 {
   "imports": {
@@ -34,13 +30,11 @@
       }
       #root { min-height: 100vh; }
       
-      /* Efeito de scroll suave e bonito */
       .scrollbar-hide::-webkit-scrollbar { display: none; }
       .scrollbar-custom::-webkit-scrollbar { width: 6px; }
       .scrollbar-custom::-webkit-scrollbar-track { background: transparent; }
       .scrollbar-custom::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
       
-      /* Animação de entrada */
       @keyframes fadeIn {
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }

@@ -2,14 +2,9 @@
 import { GoogleGenAI } from "@google/genai";
 
 export async function fetchEventDetails(eventName: string, date: string) {
-  const apiKey = process.env.API_KEY;
-
-  if (!apiKey || apiKey === "") {
-    return "A IA precisa de uma API_KEY configurada na Netlify para contar histórias sobre este dia. Adicione 'API_KEY' nas variáveis de ambiente do seu site!";
-  }
-
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    // A chave deve ser obtida exclusivamente de process.env.API_KEY
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
@@ -18,10 +13,12 @@ export async function fetchEventDetails(eventName: string, date: string) {
       Destaque curiosidades locais se houver. Seja fascinante e use no máximo 250 caracteres.`,
     });
 
-    return response.text || "Este é um marco importante em nossa cultura.";
+    // O SDK retorna a resposta na propriedade .text
+    return response.text || "Um marco importante para a cultura e história local.";
     
   } catch (error) {
-    console.error("Erro Gemini:", error);
-    return "Um dia de celebração e reflexão sobre nossa identidade cultural e histórica.";
+    console.error("Erro na Gemini API:", error);
+    // Retorna uma mensagem amigável caso a API_KEY não esteja injetada corretamente no runtime
+    return "Não foi possível carregar os detalhes históricos no momento. Este é um feriado ou data comemorativa significativa para a região.";
   }
 }

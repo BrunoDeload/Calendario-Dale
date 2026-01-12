@@ -73,7 +73,7 @@ const App: React.FC = () => {
     switch (type) {
       case EventType.NATIONAL_HOLIDAY: return { bg: 'bg-rose-500/10', border: 'border-rose-500/30', text: 'text-rose-400', badge: 'bg-rose-500' };
       case EventType.STATE_HOLIDAY: return { bg: 'bg-blue-500/10', border: 'border-blue-500/30', text: 'text-blue-400', badge: 'bg-blue-500' };
-      case EventType.CAMPINAS_HOLIDAY: return { bg: 'bg-violet-500/10', border: 'border-violet-500/30', text: 'text-violet-400', badge: 'bg-violet-600' };
+      case EventType.CAMPINAS_HOLIDAY: return { bg: 'bg-violet-600/20', border: 'border-violet-500/40', text: 'text-violet-300', badge: 'bg-violet-600' };
       case EventType.MUNICIPAL_HOLIDAY: return { bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', text: 'text-emerald-400', badge: 'bg-emerald-500' };
       case EventType.CUSTOM_EVENT: return { bg: 'bg-amber-500/10', border: 'border-amber-500/30', text: 'text-amber-400', badge: 'bg-amber-500' };
       default: return { bg: 'bg-slate-500/10', border: 'border-slate-500/30', text: 'text-slate-400', badge: 'bg-slate-500' };
@@ -82,7 +82,6 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#020617] text-slate-200 flex flex-col selection:bg-indigo-500/30">
-      {/* Header */}
       <header className="sticky top-0 z-40 bg-[#020617]/80 backdrop-blur-xl border-b border-white/5 px-6 py-4 md:px-12 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
@@ -113,7 +112,6 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Grid de Meses */}
       <main className="flex-1 p-6 md:p-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {visibleMonths.map((month, mIdx) => (
           <div key={`${month.name}-${month.year}`} className="animate-fade-in" style={{ animationDelay: `${mIdx * 100}ms` }}>
@@ -154,7 +152,6 @@ const App: React.FC = () => {
         ))}
       </main>
 
-      {/* Footer / Legenda Atualizada */}
       <footer className="p-8 bg-black/40 border-t border-white/5 flex flex-wrap justify-center gap-8">
         {[
           { color: 'bg-rose-500', label: 'Nacional' },
@@ -170,7 +167,6 @@ const App: React.FC = () => {
         ))}
       </footer>
 
-      {/* Modal de Detalhes (AI) */}
       {selectedEvent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-md">
           <div className="bg-slate-900 border border-white/10 w-full max-w-xl rounded-[2.5rem] shadow-2xl overflow-hidden animate-fade-in">
@@ -214,7 +210,8 @@ const App: React.FC = () => {
                   <div>
                     <span className="block text-[8px] font-black text-slate-500 uppercase">Localização</span>
                     <span className="text-xs font-bold text-white">
-                      {selectedEvent.type === EventType.CAMPINAS_HOLIDAY ? 'Campinas, SP' : 'RMC / Brasil'}
+                      {selectedEvent.type === EventType.CAMPINAS_HOLIDAY ? 'Campinas, SP' : 
+                       selectedEvent.type === EventType.MUNICIPAL_HOLIDAY ? 'Região Metropolitana (RMC)' : 'Brasil'}
                     </span>
                   </div>
                 </div>
@@ -231,7 +228,6 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Formulário Novo Evento */}
       {showAddForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-950/90 backdrop-blur-xl">
           <div className="bg-slate-900 border border-white/10 w-full max-w-md rounded-[2.5rem] shadow-2xl">
