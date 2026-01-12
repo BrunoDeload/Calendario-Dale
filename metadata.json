@@ -1,0 +1,7 @@
+{
+  "name": "Calendário Campinas & Brasil",
+  "description": "Um calendário completo com feriados nacionais, estaduais de SP e municipais de Campinas, além de datas culturais importantes.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
