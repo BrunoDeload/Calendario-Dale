@@ -24,7 +24,7 @@ export const FIXED_HOLIDAYS: HolidayDefinition[] = [
 
   // --- REGIÃO METROPOLITANA DE CAMPINAS (RMC) ---
   // Janeiro
-  { day: 20, month: 0, name: 'São Sebastião (Valinhos)', type: EventType.MUNICIPAL_HOLIDAY, description: 'Padroeiro de Valinhos e abertura da Festa do Figo.' },
+  { day: 20, month: 0, name: 'São Sebastião (Valinhos)', type: EventType.MUNICIPAL_HOLIDAY, description: 'Padroeiro de Valinhos.' },
   
   // Fevereiro
   { day: 2, month: 1, name: 'N. Sra. da Candelária (Indaiatuba)', type: EventType.MUNICIPAL_HOLIDAY, description: 'Padroeira da cidade de Indaiatuba.' },
@@ -46,19 +46,19 @@ export const FIXED_HOLIDAYS: HolidayDefinition[] = [
   { day: 13, month: 5, name: 'Santo Antônio (Americana)', type: EventType.MUNICIPAL_HOLIDAY, description: 'Padroeiro de Americana.' },
 
   // Julho
-  { day: 14, month: 6, name: 'Aniversário de Campinas', type: EventType.MUNICIPAL_HOLIDAY, description: 'Fundação da cidade de Campinas (1774).' },
+  { day: 14, month: 6, name: 'Aniversário de Campinas', type: EventType.CAMPINAS_HOLIDAY, description: 'Fundação da cidade de Campinas (1774).' },
   { day: 26, month: 6, name: 'Aniversário de Sumaré', type: EventType.MUNICIPAL_HOLIDAY, description: 'Fundação da cidade de Sumaré.' },
 
   // Setembro
   { day: 12, month: 8, name: 'Aniversário de Jaguariúna', type: EventType.MUNICIPAL_HOLIDAY, description: 'Fundação de Jaguariúna.' },
 
   // Outubro
-  { day: 3, month: 9, name: 'Emancipação de Holambra', type: EventType.MUNICIPAL_HOLIDAY, description: 'Data histórica de Holambra (Cidade das Flores).' },
+  { day: 3, month: 9, name: 'Emancipação de Holambra', type: EventType.MUNICIPAL_HOLIDAY, description: 'Data histórica de Holambra.' },
 
   // Novembro
   { day: 1, month: 10, name: 'Aniversário de Itatiba', type: EventType.MUNICIPAL_HOLIDAY, description: 'Fundação da cidade de Itatiba.' },
 
   // Dezembro
   { day: 4, month: 11, name: 'Santa Bárbara (S.B.O)', type: EventType.MUNICIPAL_HOLIDAY, description: 'Padroeira de Santa Bárbara d\'Oeste.' },
-  { day: 8, month: 11, name: 'Nossa Senhora da Conceição', type: EventType.MUNICIPAL_HOLIDAY, description: 'Padroeira de Campinas.' },
+  { day: 8, month: 11, name: 'Nossa Senhora da Conceição', type: EventType.CAMPINAS_HOLIDAY, description: 'Padroeira de Campinas.' },
 ];

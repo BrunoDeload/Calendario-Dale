@@ -73,6 +73,7 @@ const App: React.FC = () => {
     switch (type) {
       case EventType.NATIONAL_HOLIDAY: return { bg: 'bg-rose-500/10', border: 'border-rose-500/30', text: 'text-rose-400', badge: 'bg-rose-500' };
       case EventType.STATE_HOLIDAY: return { bg: 'bg-blue-500/10', border: 'border-blue-500/30', text: 'text-blue-400', badge: 'bg-blue-500' };
+      case EventType.CAMPINAS_HOLIDAY: return { bg: 'bg-violet-500/10', border: 'border-violet-500/30', text: 'text-violet-400', badge: 'bg-violet-600' };
       case EventType.MUNICIPAL_HOLIDAY: return { bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', text: 'text-emerald-400', badge: 'bg-emerald-500' };
       case EventType.CUSTOM_EVENT: return { bg: 'bg-amber-500/10', border: 'border-amber-500/30', text: 'text-amber-400', badge: 'bg-amber-500' };
       default: return { bg: 'bg-slate-500/10', border: 'border-slate-500/30', text: 'text-slate-400', badge: 'bg-slate-500' };
@@ -153,12 +154,13 @@ const App: React.FC = () => {
         ))}
       </main>
 
-      {/* Footer / Legenda */}
+      {/* Footer / Legenda Atualizada */}
       <footer className="p-8 bg-black/40 border-t border-white/5 flex flex-wrap justify-center gap-8">
         {[
           { color: 'bg-rose-500', label: 'Nacional' },
           { color: 'bg-blue-500', label: 'Estadual (SP)' },
-          { color: 'bg-emerald-500', label: 'Campinas / RMC' },
+          { color: 'bg-violet-600', label: 'Campinas (Sede)' },
+          { color: 'bg-emerald-500', label: 'Outras da RMC' },
           { color: 'bg-amber-500', label: 'Personalizado' },
         ].map(item => (
           <div key={item.label} className="flex items-center gap-2">
@@ -210,8 +212,10 @@ const App: React.FC = () => {
                 <div className="flex-1 flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5">
                   <MapPin size={20} className="text-slate-500" />
                   <div>
-                    <span className="block text-[8px] font-black text-slate-500 uppercase">Abrangência</span>
-                    <span className="text-xs font-bold text-white">Região de Campinas</span>
+                    <span className="block text-[8px] font-black text-slate-500 uppercase">Localização</span>
+                    <span className="text-xs font-bold text-white">
+                      {selectedEvent.type === EventType.CAMPINAS_HOLIDAY ? 'Campinas, SP' : 'RMC / Brasil'}
+                    </span>
                   </div>
                 </div>
                 <div className="flex-1 flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5">
